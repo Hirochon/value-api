@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  value-api:
+    build:
+      context: .
+      args:
+        MYSQL_USER: $MYSQL_USER
+        MYSQL_PASSWORD: $MYSQL_PASSWORD
+        MYSQL_DATABASE: $MYSQL_DATABASE
+        MYSQL_PORT: $MYSQL_PORT
+        MYSQL_HOST: $MYSQL_HOST
+    tty: true
+    stdin_open: true
+    volumes:
+      - .:/go/src/value-api
+    working_dir: /go/src/value-api
+    ports:
+      - "8600:8600"
+  value-db:
+    image: mysql:8.0.29
+    environment:
+      - MYSQL_USER
+      - MYSQL_ROOT_PASSWORD
+      - MYSQL_PASSWORD
+      - MYSQL_DATABASE
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+
+volumes:
+  mysql-data:
+    driver: local
