@@ -17,7 +17,7 @@ WORKDIR /go/src/value-api
 COPY . /go/src/value-api/
 
 RUN apk update && \
-    apk add --no-cache git
+    apk add --no-cache git gcc musl-dev make
 
 RUN go mod tidy && \
     go build -o ./ ./...

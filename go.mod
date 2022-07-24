@@ -5,6 +5,8 @@ go 1.18
 require (
 	github.com/go-logr/logr v1.2.3
 	github.com/go-logr/zapr v1.2.3
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/jmoiron/sqlx v1.3.5
 	go.uber.org/zap v1.21.0
 )
 
