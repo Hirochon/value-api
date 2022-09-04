@@ -23,7 +23,7 @@ type HttpServer struct {
 func NewHttpServer(mysqlClient *sqlx.DB, valueApiLogger logr.Logger) *HttpServer {
 	valueApiLogger.Info("starting up value-api")
 	router := mux.NewRouter()
-	router.HandleFunc("/", healthCheck).Methods("GET")
+	router.Use(mux.CORSMethodMiddleware(registerRoutes(router)))
 
 	return &HttpServer{
 		Server: &http.Server{
@@ -46,6 +46,11 @@ func (httpServer *HttpServer) SetListener(address string) *HttpServer {
 // Serve は、httpサーバーを立てる
 func (httpServer *HttpServer) Serve() error {
 	return httpServer.Server.ListenAndServe()
+}
+
+func registerRoutes(r *mux.Router) *mux.Router {
+	r.HandleFunc("/health", healthCheck).Methods(http.MethodGet)
+	return r
 }
 
 // healthCheck は、httpサーバーのヘルスチェックを行う
