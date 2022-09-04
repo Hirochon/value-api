@@ -47,13 +47,3 @@ func (httpServer *HttpServer) SetListener(address string) *HttpServer {
 func (httpServer *HttpServer) Serve() error {
 	return httpServer.Server.ListenAndServe()
 }
-
-func registerRoutes(r *mux.Router) *mux.Router {
-	r.HandleFunc("/health", healthCheck).Methods(http.MethodGet)
-	return r
-}
-
-// healthCheck は、httpサーバーのヘルスチェックを行う
-func healthCheck(w http.ResponseWriter, _ *http.Request) {
-	w.WriteHeader(http.StatusOK)
-}
