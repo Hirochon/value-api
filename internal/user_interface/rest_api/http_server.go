@@ -20,10 +20,8 @@ type HttpServer struct {
 
 // NewHttpServer は、DIとhttpの実装を登録する
 // main.goで NewHttpServer を呼び出すことで、httpサーバーを立てる
-func NewHttpServer(mysqlClient *sqlx.DB, socialMediaQueryLogger logr.Logger) *HttpServer {
-	//instagramStoriesUserInterface := InitInstagramStoriesUserInterface(mysqlClient)
-	socialMediaQueryLogger.WithName("instagram-stories")
-
+func NewHttpServer(mysqlClient *sqlx.DB, valueApiLogger logr.Logger) *HttpServer {
+	valueApiLogger.Info("starting up value-api")
 	router := mux.NewRouter()
 	router.HandleFunc("/", healthCheck).Methods("GET")
 
