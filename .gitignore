@@ -2,3 +2,4 @@
 .env
 .output
 .DS_Store
+/external
