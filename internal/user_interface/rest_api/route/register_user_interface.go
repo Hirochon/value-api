@@ -6,6 +6,7 @@ import (
 	"net/http"
 )
 
+// unmarshal する際のフィールドの頭文字は大文字でなければいけない
 type registerUser struct {
 	Name     string `json:"name"`
 	Gender   int    `json:"gender"`
