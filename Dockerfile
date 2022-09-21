@@ -20,6 +20,7 @@ RUN apk update && \
     apk add --no-cache git gcc musl-dev make
 
 RUN go mod tidy && \
+    go install github.com/google/wire/cmd/wire@v0.5.0 && \
     go build -o ./ ./...
 
 EXPOSE 8600
