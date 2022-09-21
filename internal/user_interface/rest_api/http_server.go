@@ -18,9 +18,9 @@ type httpServer struct {
 	listener net.Listener
 }
 
-func initCustomRouter() *mux.Router {
+func initCustomRouter(mysqlClient *sqlx.DB, valueApiLogger logr.Logger) *mux.Router {
 	router := mux.NewRouter()
-	router.Use(mux.CORSMethodMiddleware(registerRoutes(router)))
+	router.Use(mux.CORSMethodMiddleware(registerRoutes(router, mysqlClient, valueApiLogger)))
 	return router
 }
 
@@ -30,7 +30,7 @@ func NewHttpServer(mysqlClient *sqlx.DB, valueApiLogger logr.Logger) *httpServer
 	valueApiLogger.Info("starting up value-api")
 	return &httpServer{
 		server: &http.Server{
-			Handler: initCustomRouter(),
+			Handler: initCustomRouter(mysqlClient, valueApiLogger),
 		},
 	}
 }

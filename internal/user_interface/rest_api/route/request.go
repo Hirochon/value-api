@@ -3,7 +3,7 @@ package route
 import "encoding/json"
 
 type requestBody interface {
-	registerUser
+	registeringUserStruct
 }
 
 func unmarshalToStruct[T requestBody](body []byte) (T, error) {
